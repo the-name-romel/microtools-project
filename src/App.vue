@@ -6,21 +6,33 @@ import { RouterLink, RouterView } from "vue-router";
   <div class="container py-5" style="min-height: 100vh">
     <div class="row">
       <div class="col-md-4">
-        <div class="card mt-3" style="width: 18rem">
-          <a href="javascript: void(0)" class="text-decoration-none">
-            <div class="card-body">
-              <h5 class="card-title">Flexbox</h5>
-              <p class="card-text">A CSS layout module.</p>
+        <nav class="sticky-md-top" style="width: 18rem">
+          <RouterLink to="/" class="text-decoration-none">
+            <div class="card mt-3">
+              <a href="javascript: void(0)" class="text-decoration-none">
+                <div class="card-body">
+                  <h5 class="card-title">Flexbox</h5>
+                  <p class="card-text">A CSS layout module.</p>
+                </div>
+              </a>
             </div>
-          </a>
-        </div>
+          </RouterLink>
+          <RouterLink to="/about" class="text-decoration-none">
+            <div class="card mt-3">
+              <a href="javascript: void(0)" class="text-decoration-none">
+                <div class="card-body">
+                  <h5 class="card-title">About</h5>
+                  <p class="card-text">A CSS layout module.</p>
+                </div>
+              </a>
+            </div>
+          </RouterLink>
+        </nav>
       </div>
 
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
+      <div class="col mx-auto" style="width: 100%">
+        <RouterView />
+      </div>
     </div>
   </div>
-  <RouterView />
 </template>
