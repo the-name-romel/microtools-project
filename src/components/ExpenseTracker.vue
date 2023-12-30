@@ -83,7 +83,12 @@ const onDelete = (id) => {
 
     <!-- transaction history -->
     <h5>History</h5>
-    <div v-if="!transactions.length">No transactions yet.</div>
+    <div
+      v-if="!transactions.length"
+      class="d-flex bg-dark-subtle justify-content-center align-items-center p-3"
+    >
+      No transactions yet.
+    </div>
     <ul class="list-group">
       <li
         v-for="transaction in transactions"
