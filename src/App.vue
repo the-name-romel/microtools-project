@@ -1,5 +1,11 @@
 <script setup>
+import { ref } from "vue";
 import { RouterLink, RouterView } from "vue-router";
+
+const currentPath = ref("/");
+const setCurrentPath = (path) => {
+  currentPath.value = path;
+};
 </script>
 
 <template>
@@ -7,24 +13,34 @@ import { RouterLink, RouterView } from "vue-router";
     <div class="row">
       <div class="col-md-4">
         <nav class="sticky-md-top" style="width: 18rem">
-          <RouterLink to="/" class="text-decoration-none">
+          <RouterLink
+            to="/"
+            class="text-decoration-none"
+            @click="setCurrentPath('/')"
+          >
             <div class="card mt-3">
-              <a href="javascript: void(0)" class="text-decoration-none">
-                <div class="card-body">
-                  <h5 class="card-title">Flexbox</h5>
-                  <p class="card-text">A CSS layout module.</p>
-                </div>
-              </a>
+              <div
+                class="card-body"
+                :class="currentPath === '/' && 'bg-dark-subtle'"
+              >
+                <h5 class="card-title">Flexbox</h5>
+                <p class="card-text">A CSS layout module.</p>
+              </div>
             </div>
           </RouterLink>
-          <RouterLink to="/expense-tracker" class="text-decoration-none">
+          <RouterLink
+            to="/expense-tracker"
+            class="text-decoration-none"
+            @click="setCurrentPath('/expense-tracker')"
+          >
             <div class="card mt-3">
-              <a href="javascript: void(0)" class="text-decoration-none">
-                <div class="card-body">
-                  <h5 class="card-title">Expense Tracker</h5>
-                  <p class="card-text">A expense tracker module.</p>
-                </div>
-              </a>
+              <div
+                class="card-body"
+                :class="currentPath === '/expense-tracker' && 'bg-dark-subtle'"
+              >
+                <h5 class="card-title">Expense Tracker</h5>
+                <p class="card-text">A expense tracker module.</p>
+              </div>
             </div>
           </RouterLink>
         </nav>

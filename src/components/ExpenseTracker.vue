@@ -1,3 +1,63 @@
+<script setup>
+import { computed, ref } from "vue";
+
+const transactions = ref(
+  JSON.parse(localStorage.getItem("transactions")) || []
+);
+
+const total = computed(() => {
+  return transactions?.value
+    .map((transaction) => transaction.amount)
+    .reduce((acc, item) => (acc += item), 0)
+    .toFixed(2);
+});
+
+const income = computed(() => {
+  return transactions?.value
+    .filter((transaction) => transaction.amount > 0)
+    .map((transaction) => transaction.amount)
+    .reduce((acc, item) => (acc += item), 0)
+    .toFixed(2);
+});
+
+const expense = computed(() => {
+  return transactions?.value
+    .filter((transaction) => transaction.amount < 0)
+    .map((transaction) => transaction.amount)
+    .reduce((acc, item) => (acc += item), 0)
+    .toFixed(2);
+});
+
+const text = ref("");
+const amount = ref("");
+
+const onSubmit = () => {
+  if (!text.value || !amount.value) {
+    alert("Please add a text and amount");
+    return;
+  }
+
+  const newTransaction = {
+    id: Math.floor(Math.random() * 100000000),
+    text: text.value,
+    amount: +amount.value,
+  };
+
+  transactions.value.push(newTransaction);
+
+  // Store transactions in local storage
+  localStorage.setItem("transactions", JSON.stringify(transactions.value));
+
+  text.value = "";
+  amount.value = "";
+};
+
+const onDelete = (id) => {
+  transactions.value = transactions.value.filter((t) => t.id !== id);
+  localStorage.setItem("transactions", JSON.stringify(transactions.value));
+};
+</script>
+
 <template>
   <div class="expense" style="width: 70%">
     <h1 class="fs-4">Expense Tracker</h1>
@@ -5,46 +65,54 @@
     <!-- balance -->
     <div class="d-flex flex-column">
       <div class="text-uppercase">your balance</div>
-      <div class="fs-5">₱0.00</div>
+      <div class="fs-5">₱{{ total }}</div>
     </div>
 
     <!-- income and expense -->
     <div class="inc-exp-container bg-light">
       <div>
         <h4>Income</h4>
-        <p class="money plus">+₱0.00</p>
+        <p class="money plus">+₱{{ income }}</p>
       </div>
 
       <div>
         <h4>Expense</h4>
-        <p class="money minus">-₱0.00</p>
+        <p class="money minus">₱{{ expense }}</p>
       </div>
     </div>
 
     <!-- transaction history -->
     <h5>History</h5>
+    <div v-if="!transactions.length">No transactions yet.</div>
     <ul class="list-group">
       <li
+        v-for="transaction in transactions"
+        :key="transaction.id"
         class="list-group-item d-flex justify-content-between position-relative"
       >
-        Paycheck <span class="badge bg-success">+₱0.00</span>
-        <button class="btn btn-danger position-absolute delete-btn">X</button>
-      </li>
-      <li
-        class="list-group-item d-flex justify-content-between position-relative"
-      >
-        Cash <span class="badge bg-danger">-₱0.00</span>
-        <button class="btn btn-danger position-absolute delete-btn">X</button>
+        {{ transaction.text }}
+        <span
+          class="badge bg-success"
+          v-bind:class="transaction.amount < 0 ? 'bg-danger' : 'bg-success'"
+          >₱{{ transaction.amount }}</span
+        >
+        <button
+          @click="onDelete(transaction.id)"
+          class="btn btn-danger position-absolute delete-btn"
+        >
+          X
+        </button>
       </li>
     </ul>
 
     <!-- add transaction -->
     <div class="mt-4">
       <h5>Add new transaction</h5>
-      <form>
+      <form @submit.prevent="onSubmit">
         <div class="mb-3">
           <label for="text" class="form-label">Text</label>
           <input
+            v-model="text"
             type="text"
             class="form-control"
             id="text"
@@ -57,6 +125,7 @@
             (negative - expense, positive - income)</label
           >
           <input
+            v-model="amount"
             type="number"
             class="form-control"
             id="amount"
