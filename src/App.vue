@@ -17,12 +17,12 @@ import { RouterLink, RouterView } from "vue-router";
               </a>
             </div>
           </RouterLink>
-          <RouterLink to="/about" class="text-decoration-none">
+          <RouterLink to="/expense-tracker" class="text-decoration-none">
             <div class="card mt-3">
               <a href="javascript: void(0)" class="text-decoration-none">
                 <div class="card-body">
-                  <h5 class="card-title">About</h5>
-                  <p class="card-text">A CSS layout module.</p>
+                  <h5 class="card-title">Expense Tracker</h5>
+                  <p class="card-text">A expense tracker module.</p>
                 </div>
               </a>
             </div>
