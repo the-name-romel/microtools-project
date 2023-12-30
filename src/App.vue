@@ -60,7 +60,7 @@ const setCurrentPath = (path) => {
           </RouterLink>
           <div class="card mt-5">
             <div class="card-body">
-              <h5 class="card-title">Mikrotools Project by</h5>
+              <h5 class="card-title">Microtools Project by</h5>
               <p class="card-text">Romel Acopra</p>
               <p class="card-text">Carl John Cruz</p>
               <p class="card-text">Sheena Lovendino</p>
