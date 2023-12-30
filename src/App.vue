@@ -43,6 +43,21 @@ const setCurrentPath = (path) => {
               </div>
             </div>
           </RouterLink>
+          <RouterLink
+            to="/bmi-calculator"
+            class="text-decoration-none"
+            @click="setCurrentPath('/bmi-calculator')"
+          >
+            <div class="card mt-3">
+              <div
+                class="card-body"
+                :class="currentPath === '/bmi-calculator' && 'bg-dark-subtle'"
+              >
+                <h5 class="card-title">BMI Calculator</h5>
+                <p class="card-text">A BMI calculator module.</p>
+              </div>
+            </div>
+          </RouterLink>
         </nav>
       </div>
 

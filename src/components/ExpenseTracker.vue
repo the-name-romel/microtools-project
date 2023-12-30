@@ -144,15 +144,9 @@ const onDelete = (id) => {
 </template>
 
 <style scoped>
-.expense {
-  font-family: "Lato", sans-serif;
-  font-size: 16px;
-  line-height: 1.5;
-}
-
 .inc-exp-container {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-  padding: 20px;
+  padding: 20px 40px;
   display: flex;
   justify-content: space-between;
   margin: 20px 0;
